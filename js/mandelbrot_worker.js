@@ -3,7 +3,7 @@ var math = mathjs();
 var canvasData;
 
 onmessage = function(event) {
-        mandelbrot(event.data);
+	mandelbrot(event.data);
 } 
 
 function mandelbrot(settings) {
@@ -22,12 +22,11 @@ function mandelbrot(settings) {
 
 			while (math.abs(z) < 2 && n < settings.iter) {
 				z = math.add(math.multiply(z,z), c);
-			
 				n += 1;
 			}
 
-			co = n / settings.iter;
-			updatePixel(x, y, 0, 0, parseInt(255* co), 255);	
+			var color = getColor(n, settings.iter);
+			updatePixel(x, y, color.r, color.g, color.b, 255);	
 		}
 	}
 	postMessage(canvasData);
@@ -40,5 +39,33 @@ function updatePixel (x, y, r, g, b, a) {
 	canvasData.data[index + 2] = b;
 	canvasData.data[index + 3] = a;
 }
-        
+
+function getColor(n, maxn) {
+    var r = 0;
+    var g = 0;
+    var b = 0;
+    if (n != maxn) {
+    	var c = 3 * Math.log(n) / Math.log(maxn-1);
+    	if (c < 1)
+        {
+        	b = c;
+        }
+        else if (c < 2)
+        {
+        	g = c-1;
+        	b = 1;
+        }
+        else
+        {
+        	r = c-2;
+        	g = 1;
+         	b = 1;
+        }
+    }	
+    return {
+        r: math.floor(r * 255),
+        g: math.floor(g * 255),
+        b: math.floor(b * 255)
+    };
+}        
  
