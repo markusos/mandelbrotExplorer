@@ -9,6 +9,11 @@ onmessage = function(event) {
 function mandelbrot(settings) {
     var n;
     var z;
+    var ztemp;
+    var xi;
+    var yi;
+    var c;
+
     var center = math.complex(settings.cx, settings.cy);
     canvasData = settings.canvasData;
 
@@ -78,9 +83,9 @@ function getColor(n, maxn) {
       ];
 
   if (n === maxn) {
-    return {r:0,g:0,b:0}
+    return {r:0,g:0,b:0};
   }
   else {
-    return palette[n%palette.length]
+    return palette[n%palette.length];
   }
 }

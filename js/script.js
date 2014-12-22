@@ -4,7 +4,7 @@ var settings;
 $(document).ready(function(){
     init();
     update();
-})
+});
 
 function init() {
     $('#mandelbrotCanvas').bind( "mousedown", function(e){ canvasClick(e); } );
@@ -19,8 +19,8 @@ function init() {
     });
 
     $('#spinner').hide();
-    settings = new Object();
 
+    settings = {};
     settings.zoom = 0.8;
     settings.cx = -0.6;
     settings.cy = 0;
@@ -30,8 +30,8 @@ function init() {
     settings.canvasWidth = canvas.width;
     settings.canvasHeight = canvas.height;
 
-    canvasContext = canvas.getContext("2d")
-    settings.canvasData = canvasContext.getImageData(0, 0, settings.canvasWidth, settings.canvasHeight)
+    canvasContext = canvas.getContext("2d");
+    settings.canvasData = canvasContext.getImageData(0, 0, settings.canvasWidth, settings.canvasHeight);
 }
 
 function update() {
